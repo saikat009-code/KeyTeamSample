@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { imagePaths } from '../themes/ImagePath';
 import { useNavigation } from '@react-navigation/native';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 const { width, height } = Dimensions.get('window');
-
 
 export default function Home() {
   const initialRegion = {
@@ -28,7 +29,7 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MapView
+      {/* <MapView
         style={styles.map}
         initialRegion={initialRegion}
         showsUserLocation
@@ -46,7 +47,19 @@ export default function Home() {
         <Marker coordinate={{ latitude: 37.7875, longitude: -122.4315 }}>
           <View style={styles.pokestopMarker} />
         </Marker>
-      </MapView>
+      </MapView> */}
+      <ImageZoom
+        cropWidth={width}
+        cropHeight={height}
+        imageWidth={width}
+        imageHeight={height}
+      >
+        <Image
+          style={{ width: width, height: height }}
+          source={imagePaths.backImg}
+          resizeMode="cover"
+        />
+      </ImageZoom>
 
       {/* Top Banner */}
       <View style={styles.topBanner}>
@@ -58,7 +71,9 @@ export default function Home() {
         <TouchableOpacity
           style={styles.avatarWrapper}
           onPress={() =>
-            navigation.navigate('AvatarScreen', { setSelectedAvatar: setSelectedAvatar})
+            navigation.navigate('AvatarScreen', {
+              setSelectedAvatar: setSelectedAvatar,
+            })
           }
         >
           <Image source={selectedAvatar} style={styles.avatar} />
@@ -70,7 +85,9 @@ export default function Home() {
 
         <TouchableOpacity style={styles.avatarWrapper}>
           <Image
-            source={{ uri: 'https://ui-avatars.com/api/?name=Player&background=f9c2ff&color=000' }}
+            source={{
+              uri: 'https://ui-avatars.com/api/?name=Player&background=f9c2ff&color=000',
+            }}
             style={styles.avatar}
           />
         </TouchableOpacity>
